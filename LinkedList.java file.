@@ -1,0 +1,92 @@
+question 3
+public class LinkedList {
+
+    // Imagine a linked list like a chain of paper notes.
+    // Each 'Node' is one of those notes.
+    private Node head; // 'head' points to the first note in the chain.
+
+    // Each 'Node' holds a piece of data and a pointer to the next note.
+    private static class Node {
+        int data; // The information stored in the note.
+        Node next; // A pointer to the next note in the chain.
+
+        // Constructor to create a new note.
+        Node(int data) {
+            this.data = data; // Store the data.
+            this.next = null; // Initially, the next note is nothing.
+        }
+    }
+
+    // Add a new note at the beginning of the chain.
+    public void insertAtBeginning(int data) {
+        // Create a new note with the given data.
+        Node newNode = new Node(data);
+
+        // Make the new note point to the current first note.
+        newNode.next = head;
+
+        // Now, the new note is the first note in the chain.
+        head = newNode;
+    }
+
+    // Add a new note at the end of the chain.
+    public void insertAtEnd(int data) {
+        // Create a new note with the given data.
+        Node newNode = new Node(data);
+
+        // If the chain is empty, the new note becomes the first note.
+        if (head == null) {
+            head = newNode;
+            return; // We're done!
+        }
+
+        // Let's find the last note in the chain.
+        Node current = head;
+        while (current.next != null) {
+            current = current.next; // Move to the next note.
+        }
+
+        // Make the last note point to the new note.
+        current.next = newNode;
+    }
+
+    // Remove the first note from the chain.
+    public void deleteFromBeginning() {
+        // If the chain is empty, there's nothing to remove.
+        if (head == null) {
+            return; // We're done!
+        }
+
+        // Make the second note the new first note.
+        head = head.next;
+    }
+
+    // Print all the notes in the chain.
+    public void printList() {
+        // Start at the first note.
+        Node current = head;
+
+        // Go through each note and print its data.
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next; // Move to the next note.
+        }
+        System.out.println(); // Add a newline at the end.
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.insertAtBeginning(1); // Add 1 to the beginning.
+        list.insertAtBeginning(2); // Add 2 to the beginning.
+        list.insertAtEnd(3); // Add 3 to the end.
+        list.insertAtEnd(4); // Add 4 to the end.
+
+        System.out.println("Linked List:");
+        list.printList(); // Should print: 2 1 3 4
+
+        list.deleteFromBeginning(); // Remove the first note.
+        System.out.println("Linked List after deleting from beginning:");
+        list.printList(); // Should print: 1 3 4
+    }
+}
